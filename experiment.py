@@ -30,4 +30,5 @@ if __name__ == "__main__":
     spec.optimization_hyperparams['alpha_theta'] = 0.01
     spec.optimization_hyperparams['alpha_lamb'] = 0.01
 
-    
+    # run_trial given agent and env
+    # datagen_method?

@@ -35,24 +35,43 @@ class MEDEVAC(object):
         self.high = np.ones(self.state.size + self.M_n + 1)
         # self.observation_space = Space(low=self.low, high=self.high, dtype=np.float32)
 
-        # For arrival rates
-        self.partial_lmd = np.genfromtxt("./AR.csv", delimiter=",")
-        self.pZ = self.partial_lmd.sum(axis=1) / self.partial_lmd.sum() # does not sum to 1, hack
-        self.pK = np.array([0.16, 0.16, 0.68])  # does not sum to 1, use values for 34 zone
-        self.base_lmd = 1.0/30
-        # print(np.shape(self.partial_lmd))
-        # print(self.partial_lmd)
-        assert np.shape(self.partial_lmd) == (self.Z_n, self.K_n)
+        if self.Z_n == 12:
+            # For arrival rates
+            self.partial_lmd = np.genfromtxt("./AR_12.csv", delimiter=",")
+            self.pZ = self.partial_lmd.sum(axis=1) / self.partial_lmd.sum() # does not sum to 1, hack
+            self.pK = np.array([0.16, 0.16, 0.68])  # does not sum to 1, use values for 34 zone
+            self.base_lmd = 1.0/30
+            # print(np.shape(self.partial_lmd))
+            # print(self.partial_lmd)
+            assert np.shape(self.partial_lmd) == (self.Z_n, self.K_n)
 
-        # For completion times
-        self.ST = np.genfromtxt('./ST.csv', delimiter=',')
-        self.mu_zm = 1.0 / self.ST
-        self.mu = np.sum(np.max(self.mu_zm[:, idx]) for idx in range(self.M_n))
-        assert np.shape(self.mu_zm) == (self.Z_n, self.M_n)
+            # For completion times
+            self.ST = np.genfromtxt('./ST_12.csv', delimiter=',')
+            self.mu_zm = 1.0 / self.ST
+            self.mu = np.sum(np.max(self.mu_zm[:, idx]) for idx in range(self.M_n))
+            assert np.shape(self.mu_zm) == (self.Z_n, self.M_n)
 
-        # Rewards for serving specific zones by specific MEDEVACs # !!! Response Time
-        self.RT = np.genfromtxt('./RT.csv', delimiter=',')
-        assert np.shape(self.RT) == (self.Z_n, self.M_n)
+            # Rewards for serving specific zones by specific MEDEVACs # !!! Response Time
+            self.RT = np.genfromtxt('./RT_12.csv', delimiter=',')
+            assert np.shape(self.RT) == (self.Z_n, self.M_n)
+        elif self.Z_n == 34:
+            # For arrival rates
+            self.pZ = np.genfromtxt('./requests.csv', delimiter=' ')
+            self.pK = np.genfromtxt('./kpriority.csv', delimiter=' ')
+            self.partial_lmd = self.pK * self.pZ.reshape(-1,1)
+            self.base_lmd = 1.0/30
+            # print(np.shape(self.partial_lmd))
+            assert np.shape(self.partial_lmd) == (self.Z_n, self.K_n)
+
+            # For completion times
+            self.ST = np.genfromtxt('./completion.csv', delimiter=' ')
+            self.mu_zm = 1.0 / self.ST
+            self.mu = np.sum(np.max(self.mu_zm[:, idx]) for idx in range(self.M_n))
+            assert np.shape(self.mu_zm) == (self.Z_n, self.M_n)
+
+            # Rewards for serving specific zones by specific MEDEVACs # !!! Response Time
+            self.RT = np.genfromtxt('./returns.csv', delimiter=' ')
+            assert np.shape(self.RT) == (self.Z_n, self.M_n)
         
         self.w_k = np.array([100.0, 10.0, 1.0])
         # self.w_k = np.array([10.0, 5.0, 1.0])

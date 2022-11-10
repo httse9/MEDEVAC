@@ -11,7 +11,7 @@ def main():
     dataset = RLDataSet(episodes=episodes)
 
     # initialize policy
-    state_space = Discrete_Space(0, 4826691)
+    state_space = Discrete_Space(0, 4826691) # 1838264540) #)
     action_space = Discrete_Space(0, 4) # 0123: units, 4: no-op. Different from paper
     env_description =  Env_Description(state_space, action_space)
     policy = DiscreteSoftmax(hyperparam_and_setting_dict={},
