@@ -5,7 +5,7 @@ if __name__ == "__main__":
     # load specfile
     specfile = './spec.pkl'
     spec = load_pickle(specfile)
-    spec.optimization_hyperparams['num_iters']=30
+    spec.optimization_hyperparams['num_iters']=10
     spec.optimization_hyperparams['alpha_theta']=0.1
     spec.optimization_hyperparams['alpha_lamb']=0.01
     # Run Seldonian algorithm 

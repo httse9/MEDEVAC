@@ -1,7 +1,7 @@
 from seldonian.utils.io_utils import load_pickle, save_pickle
 from seldonian.utils.plot_utils import plot_gradient_descent
 from generate_data import state_to_number
-from MEDEVAC import MEDEVAC
+from seldonian.RL.environments.medevac import MedEvac
 import numpy as np
 
 def main():
@@ -11,32 +11,29 @@ def main():
 
     # plot_gradient_descent(solution, "Performance")
 
-    env = MEDEVAC(speed=0)
+    env = MedEvac()
     n_episodes = 1000
     gamma = 1
 
     returns = []
     for i in range(n_episodes):
-        rewards = []
-        done = False
-        state = env.reset()
-        while not done:
-            q = solution[state_to_number(env, state)]
-            # print(q.shape)
-            valid_actions = state[-(env.M_n + 1):]
-            # print(valid_actions.shape)
+        ret = 0
+
+        env.reset()
+        observation = env.get_observation()
+        while not env.terminated():
+            q = observation @ solution
+            print(q)
+
+            valid_actions = observation[:env.n_actions]
 
             q[valid_actions == 0] = float('-inf')
 
             action = np.argmax(q)
-            next_state, r, done, _ = env.step(action)
+            reward = env.transition(action)
 
-            rewards.append(r)
-            state = next_state
-
-        ret = 0
-        for r in reversed(rewards):
-            ret = gamma * ret + r
+            ret += reward
+            observation = env.get_observation()
 
         returns.append(ret)
     print(sum(returns) / len(returns))

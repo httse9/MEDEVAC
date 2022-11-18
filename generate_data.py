@@ -1,6 +1,7 @@
 from seldonian.dataset import Episode
 from seldonian.utils.io_utils import save_pickle
-from MEDEVAC import MEDEVAC, Random
+from MEDEVAC import Random
+from seldonian.RL.environments.medevac import MedEvac
 import numpy as np
 
 def state_to_number(env, state):
@@ -40,32 +41,40 @@ def state_to_number(env, state):
     # print(number)
     return number
 
+def Random(env):
+    valid = env.valid_actions.copy()
+    probs = valid/ np.sum(valid)
+    action = np.random.choice(env.n_actions, p=probs)
+
+    return action, probs[action]
 
 
 def main():
     n_episodes = 1000
-    env = MEDEVAC(speed=0, debug=True)
+    Z_n = 12
+    env = MedEvac(Z_n=Z_n)
 
     episodes = []
     for i in range(n_episodes):
-        states = []
+        observations = []
         actions = []
         action_probs = []
         rewards = []
-        done = False
-        state = env.reset()
-        while not done:
-            action, action_prob = Random(env, state)
-            next_state, r, done, _ = env.step(action)
 
-            states.append(state_to_number(env, state))
+        env.reset()
+        observation = env.get_observation()
+        while not env.terminated():
+            action, action_prob = Random(env)
+            reward = env.transition(action)
+            
+            observations.append(observation)
             actions.append(action)
             action_probs.append(action_prob)
-            rewards.append(r)
+            rewards.append(reward)
 
-            state = next_state
+            observation = env.get_observation()
 
-        episodes.append(Episode(states, actions, rewards, action_probs))
+        episodes.append(Episode(observations, actions, rewards, action_probs))
 
     save_pickle(f"./MEDEVAC_{n_episodes}episodes.pkl", episodes)
 
