@@ -1,6 +1,5 @@
 from seldonian.dataset import Episode
 from seldonian.utils.io_utils import save_pickle
-from MEDEVAC import Random
 from seldonian.RL.environments.medevac import MedEvac
 import numpy as np
 
