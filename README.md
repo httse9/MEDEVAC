@@ -1,4 +1,5 @@
 # MEDEVAC
+Default: 34 zone
 
 ## Python files
 `
