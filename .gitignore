@@ -1,3 +1,7 @@
 **/*.pkl
 **/__pycache__
 Engine_MEDEVAC
+results
+logs
+__pycache__
+

@@ -14,9 +14,16 @@ def main():
 
     # initialize policy
     num_features = 19
-    Z_n = 12
+    Z_n = 34
     each_dim_bound = np.array([[0.0, 1.0]])
     observation_space_bounds = np.repeat(each_dim_bound, num_features, axis=0)
+    # observation_space_bounds = np.array([
+    #     [0, 1], [0, 1], [0, 1], [0, 1], [0, 1],
+    #     [0, 20], [0, 200], [0, 200], [0, 200],
+    #     [0, 20], [0, 200], [0, 200], [0, 200],
+    #     [0, 20], [0, 200], [0, 200], [0, 200], 
+    #     [0, 1], [1, 1]
+    # ])
     observation_space = Continuous_Space(observation_space_bounds)
 
     action_space = Discrete_Space(0, 4) # 0123: units, 4: no-op. Different from paper
@@ -32,7 +39,7 @@ def main():
         env_description=env_description)
     env_kwargs={'gamma':1.0}
     save_dir = '.'
-    constraint_strs = ['J_pi_new >= 0.01']
+    constraint_strs = ['J_pi_new >= 1']
     deltas=[0.05]
 
     spec = createRLSpec(

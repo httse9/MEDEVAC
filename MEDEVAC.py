@@ -252,14 +252,14 @@ if __name__=="__main__":
     rewards_list = []
     eps = []
     env = MEDEVAC(speed=1, debug=True)
-    for i in range(1000):
+    for i in range(10000):
         rewards = []
         steps = 0
         done = False
         state = env.reset()
         while not done:
-            # action, _ = Random(env, state)
-            action = Myopic(env)
+            action, _ = Random(env, state)
+            # action = Myopic(env)
             # print(valid, probs)
             next_state, r, done, _ = env.step(action)
             rewards.append(r)
