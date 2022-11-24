@@ -15,11 +15,12 @@ def generate_episodes_and_cal_J():
     solution = load_pickle("./solution.pkl")
 
     # create env and agent
+    env = MedEvac(Z_n=Z_n)
     hyperparameter_and_setting_dict = {}
-    hyperparameter_and_setting_dict["env"] = MedEvac(Z_n=Z_n)
+    hyperparameter_and_setting_dict["env"] = env
     hyperparameter_and_setting_dict["agent"] = "Parameterized_non_learning_softmax_agent"
     hyperparameter_and_setting_dict["basis"] = "Identity" 
-    hyperparameter_and_setting_dict["num_features"] = 19
+    hyperparameter_and_setting_dict["num_features"] = env.num_features
     agent = create_agent(hyperparameter_and_setting_dict)
     env = hyperparameter_and_setting_dict["env"]
 
@@ -47,15 +48,16 @@ def main():
     cs_file = f'./logs/candidate_selection_log{max(log_files)}.p'
     solution_dict = load_pickle(cs_file)
     
+    # plot gradient descent
     fig = plot_gradient_descent(solution_dict, primary_objective_name='J',\
         save=False)
     plt.show()
 
-    # plot_gradient_descent(solution, "Performance")
-
+    # calculate performance
     J = generate_episodes_and_cal_J()
     print(J)
 
+    # # observe probabilities
     # env = MedEvac(Z_n = Z_n)
     # n_episodes = 1000
     # gamma = 1
@@ -73,12 +75,10 @@ def main():
     #         action = np.random.choice(5, p=action_prob)
     #         print(action_prob, action, np.argmax(q))
 
+    #         # mask out invalid actions, which is not required anymore
     #         # valid_actions = observation[:env.n_actions]
-
     #         # q[valid_actions == 0] = float('-inf')
 
-    #         # action = np.argmax(q)
-    #         # print(action)
     #         reward = env.transition(action)
 
     #         ret += reward

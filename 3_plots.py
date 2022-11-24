@@ -50,7 +50,7 @@ def main():
     # Load spec
     specfile = './spec.pkl'
     spec = load_pickle(specfile)
-    spec.optimization_hyperparams['num_iters'] = 50
+    spec.optimization_hyperparams['num_iters'] = 40
     spec.optimization_hyperparams['alpha_theta'] = 0.0003
     spec.optimization_hyperparams['alpha_lamb'] = 0.0003
 
@@ -58,10 +58,11 @@ def main():
     perf_eval_kwargs = {'n_episodes_for_eval':n_episodes_for_eval}
 
     Z_n = 34
-    num_features = 19
+    env = MedEvac(Z_n=Z_n)
+    num_features = env.num_features
 
     hyperparam_and_setting_dict = {}
-    hyperparam_and_setting_dict["env"] = MedEvac(Z_n=Z_n)
+    hyperparam_and_setting_dict["env"] = env
     hyperparam_and_setting_dict["agent"] = "Parameterized_non_learning_softmax_agent"
     hyperparam_and_setting_dict["basis"] = "Identity" 
     hyperparam_and_setting_dict["num_features"] = num_features
