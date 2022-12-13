@@ -19,7 +19,7 @@ def main():
     num_features = env.num_features
 
     hyperparam_and_setting_dict = {}
-    hyperparam_and_setting_dict["env"] = env
+    hyperparam_and_setting_dict["env"] = env #'medevac'
     hyperparam_and_setting_dict["agent"] = "Parameterized_non_learning_softmax_agent"
     hyperparam_and_setting_dict["basis"] = "Identity" 
     hyperparam_and_setting_dict["num_features"] = num_features
@@ -27,7 +27,7 @@ def main():
     env_description =  env.env_description
     policy = Softmax(hyperparam_and_setting_dict=hyperparam_and_setting_dict,
         env_description=env_description)
-    env_kwargs={'gamma':1.0}
+    env_kwargs={'gamma':1}
     save_dir = '.'
     constraint_strs = ['J_pi_new >= 0']
     deltas= [0.05]

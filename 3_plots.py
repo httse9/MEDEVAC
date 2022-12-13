@@ -57,7 +57,7 @@ def main():
     perf_eval_fn = generate_episodes_and_cal_J
     perf_eval_kwargs = {'n_episodes_for_eval':n_episodes_for_eval}
 
-    Z_n = 34
+    Z_n = 12
     env = MedEvac(Z_n=Z_n)
     num_features = env.num_features
 
@@ -66,7 +66,7 @@ def main():
     hyperparam_and_setting_dict["agent"] = "Parameterized_non_learning_softmax_agent"
     hyperparam_and_setting_dict["basis"] = "Identity" 
     hyperparam_and_setting_dict["num_features"] = num_features
-    hyperparam_and_setting_dict["num_episodes"] = 1000
+    hyperparam_and_setting_dict["num_episodes"] = 50000
     hyperparam_and_setting_dict["vis"] = False
 
     plot_generator = RLPlotGenerator(

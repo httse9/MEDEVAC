@@ -2,11 +2,8 @@ import os
 import autograd.numpy as np   # Thinly-wrapped version of Numpy
 
 from experiments.generate_plots import RLPlotGenerator
-
 from seldonian.utils.io_utils import load_pickle
-from seldonian.utils.stats_utils import weighted_sum_gamma
-from seldonian.RL.RL_runner import (create_env,
-    create_agent,run_trial_given_agent_and_env)
+
 
 if __name__ == "__main__":
     # Parameter setup
