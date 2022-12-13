@@ -9,13 +9,12 @@ def Random(env):
     # action = np.random.choice(env.n_actions, p=probs)
 
     return np.random.choice(5), 0.2
-
     return action, probs[action]
 
 
 def main():
-    n_episodes = 1000
-    Z_n = 34
+    n_episodes = 50000
+    Z_n = 12
     env = MedEvac(Z_n=Z_n)
 
     episodes = []

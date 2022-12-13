@@ -258,8 +258,8 @@ if __name__=="__main__":
         done = False
         state = env.reset()
         while not done:
-            action, _ = Random(env, state)
-            # action = Myopic(env)
+            #action, _ = Random(env, state)
+            action = Myopic(env)
             # print(valid, probs)
             next_state, r, done, _ = env.step(action)
             rewards.append(r)

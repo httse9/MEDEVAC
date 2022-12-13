@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import os
 import re
 
-Z_n = 34
+Z_n = 12
 
 def generate_episodes_and_cal_J():
     # Get trained model weights from running the Seldonian algo
