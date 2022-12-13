@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import os
 import re
 
-Z_n = 34
+Z_n = 12
 
 def generate_episodes_and_cal_J():
     # Get trained model weights from running the Seldonian algo
@@ -40,7 +40,7 @@ def generate_episodes_and_cal_J():
 def main():
 
     solution = load_pickle("./solution.pkl")
-    print(solution)
+    # print(solution)
 
     log_files = os.listdir("./logs/")
     log_files = [int(re.sub("[^0-9]", "", f)) for f in log_files]
@@ -53,14 +53,12 @@ def main():
         save=False)
     plt.show()
 
-    # calculate performance
-    J = generate_episodes_and_cal_J()
-    print(J)
-
     # # observe probabilities
     # env = MedEvac(Z_n = Z_n)
     # n_episodes = 1000
     # gamma = 1
+    # n_actions_taken = np.zeros(env.n_actions)
+    # n_valid_actions_taken = np.zeros(env.n_actions)
 
     # returns = []
     # for i in range(n_episodes):
@@ -75,6 +73,10 @@ def main():
     #         action = np.random.choice(5, p=action_prob)
     #         print(action_prob, action, np.argmax(q))
 
+    #         n_actions_taken[action] += 1
+    #         if env.valid_actions[action] == 1:
+    #             n_valid_actions_taken[action] += 1
+
     #         # mask out invalid actions, which is not required anymore
     #         # valid_actions = observation[:env.n_actions]
     #         # q[valid_actions == 0] = float('-inf')
@@ -86,6 +88,11 @@ def main():
 
     #     returns.append(ret)
     # print(sum(returns) / len(returns))
+    # print(n_actions_taken, n_valid_actions_taken, n_valid_actions_taken / n_actions_taken)
+
+    # # calculate performance
+    # J = generate_episodes_and_cal_J()
+    # print(J)
 
 
 if __name__ == "__main__":

@@ -8,12 +8,13 @@ from seldonian.RL.environments.medevac import MedEvac
 import autograd.numpy as np
 
 def main():
-    episodes_file = "./MEDEVAC_1000episodes.pkl"
+    n_episodes = 50000
+    episodes_file = f"./MEDEVAC_{n_episodes}episodes.pkl"
     episodes = load_pickle(episodes_file)
     dataset = RLDataSet(episodes=episodes)
 
     # initialize policy
-    Z_n = 34
+    Z_n = 12
     env = MedEvac(Z_n = Z_n)
     num_features = env.num_features
 
@@ -28,8 +29,8 @@ def main():
         env_description=env_description)
     env_kwargs={'gamma':1.0}
     save_dir = '.'
-    constraint_strs = ['J_pi_new >= 1']
-    deltas=[0.05]
+    constraint_strs = ['J_pi_new >= 0']
+    deltas= [0.05]
 
     spec = createRLSpec(
         dataset=dataset,

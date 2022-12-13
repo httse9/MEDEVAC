@@ -51,8 +51,8 @@ def main():
     specfile = './spec.pkl'
     spec = load_pickle(specfile)
     spec.optimization_hyperparams['num_iters'] = 40
-    spec.optimization_hyperparams['alpha_theta'] = 0.0003
-    spec.optimization_hyperparams['alpha_lamb'] = 0.0003
+    spec.optimization_hyperparams['alpha_theta'] = 0.0001
+    spec.optimization_hyperparams['alpha_lamb'] = 0.03
 
     perf_eval_fn = generate_episodes_and_cal_J
     perf_eval_kwargs = {'n_episodes_for_eval':n_episodes_for_eval}

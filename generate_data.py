@@ -4,19 +4,17 @@ from seldonian.RL.environments.medevac import MedEvac
 import autograd.numpy as np
 
 def Random(env):
-    # valid = env.valid_actions.copy()
-    # probs = valid/ np.sum(valid)
-    # action = np.random.choice(env.n_actions, p=probs)
 
     return np.random.choice(5), 0.2
 
-    return action, probs[action]
-
 
 def main():
-    n_episodes = 1000
-    Z_n = 34
+    n_episodes = 50000
+    Z_n = 12
     env = MedEvac(Z_n=Z_n)
+    total_n_actions = 0
+    n_actions_taken = np.zeros(env.n_actions)
+    n_valid_actions_taken = np.zeros(env.n_actions)
 
     episodes = []
     for i in range(n_episodes):
@@ -36,11 +34,19 @@ def main():
             action_probs.append(action_prob)
             rewards.append(reward)
 
+            total_n_actions += 1
+            n_actions_taken[action] += 1
+            if env.valid_actions[action] == 1:
+                n_valid_actions_taken[action] += 1
+
             observation = env.get_observation()
 
         episodes.append(Episode(observations, actions, rewards, action_probs))
 
     save_pickle(f"./MEDEVAC_{n_episodes}episodes.pkl", episodes)
+
+    print(total_n_actions)
+    print(n_actions_taken, n_valid_actions_taken, n_valid_actions_taken / n_actions_taken)
 
 if __name__ == "__main__":
     main()

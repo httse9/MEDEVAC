@@ -225,17 +225,22 @@ def Myopic(env):
             if service_rate[idx] > best_t:
                 best_t = service_rate[idx]
                 best_m = idx
+
+    # if not valid_actions[best_m]:
+    #     best_m = 4
     
     # print(valid_actions, best_m)
     return best_m
 
 
 def Random(env, state):
-    valid = state[-env.n_actions:]
-    probs = valid/ np.sum(valid)
-    action = np.random.choice(env.n_actions, p=probs)
+    # valid = state[-env.n_actions:]
+    # probs = valid/ np.sum(valid)
+    # action = np.random.choice(env.n_actions, p=probs)
 
-    return action, probs[action]
+    # return action, probs[action]
+
+    return np.random.choice(env.n_actions), 0.2
 
 
 def smooth(ar, alpha=0.99):
@@ -252,7 +257,7 @@ if __name__=="__main__":
     rewards_list = []
     eps = []
     env = MEDEVAC(speed=1, debug=True)
-    for i in range(10000):
+    for i in range(1000):
         rewards = []
         steps = 0
         done = False
