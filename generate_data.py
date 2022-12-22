@@ -9,7 +9,7 @@ def Random(env):
 
 
 def main():
-    n_episodes = 50000
+    n_episodes = 1000
     Z_n = 12
     env = MedEvac(Z_n=Z_n)
     total_n_actions = 0
