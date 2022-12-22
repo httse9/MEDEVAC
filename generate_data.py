@@ -43,7 +43,7 @@ def main():
 
         episodes.append(Episode(observations, actions, rewards, action_probs))
 
-    save_pickle(f"./MEDEVAC_{n_episodes}episodes.pkl", episodes)
+    save_pickle("/media/htse/MEDEVAC_" + str(n_episodes) + "episodes.pkl", episodes)
 
     print(total_n_actions)
     print(n_actions_taken, n_valid_actions_taken, n_valid_actions_taken / n_actions_taken)
