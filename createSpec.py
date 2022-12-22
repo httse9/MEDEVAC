@@ -8,7 +8,7 @@ from seldonian.RL.environments.medevac import MedEvac
 import autograd.numpy as np
 
 def main():
-    n_episodes = 50000
+    n_episodes = 1000
     episodes_file = f"./MEDEVAC_{n_episodes}episodes.pkl"
     episodes = load_pickle(episodes_file)
     dataset = RLDataSet(episodes=episodes)

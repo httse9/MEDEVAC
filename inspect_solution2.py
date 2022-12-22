@@ -9,7 +9,7 @@ import os
 import re
 
 Z_n = 12
-n_episodes = 50000
+n_episodes = 1000
 episodes_file = f"./MEDEVAC_{n_episodes}episodes.pkl"
 episodes = load_pickle(episodes_file)
 
