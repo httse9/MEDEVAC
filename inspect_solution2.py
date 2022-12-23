@@ -40,7 +40,7 @@ def performance_on_new_set(solution):
     env = MedEvac(Z_n = Z_n)
 
     returns = []
-    for i in range(1000):
+    for i in range(50000):
         ret = 0
 
         env.reset()
@@ -105,7 +105,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--file", help="name of solution file", default="solution.pkl", \
         type=str)
-    parser.add_argument("--n_episodes", default=1000, type=str)
+    parser.add_argument("--n_episodes", default=1000, type=int)
     parser.add_argument("--Z_n", type=int, default=12)
 
     args = parser.parse_args()
@@ -116,7 +116,7 @@ if __name__ == "__main__":
 
     print("Z_n:", Z_n, "n_episodes:", n_episodes, "file:", file)
 
-    episodes_file = f"./MEDEVAC_{n_episodes}episodes.pkl"
+    episodes_file = f"/media/htse/MEDEVAC_{n_episodes}episodes.pkl"
     episodes = load_pickle(episodes_file)
 
     solution = load_pickle(file)
