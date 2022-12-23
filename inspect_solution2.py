@@ -10,7 +10,7 @@ import re
 
 Z_n = 12
 n_episodes = 1000
-episodes_file = f"./MEDEVAC_{n_episodes}episodes.pkl"
+episodes_file = "/media/htse/MEDEVAC_" + str(n_episodes) + "episodes.pkl"
 episodes = load_pickle(episodes_file)
 
 def performance_on_train_set(sol):
