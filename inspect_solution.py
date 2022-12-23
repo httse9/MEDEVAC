@@ -7,6 +7,7 @@ import autograd.numpy as np
 import matplotlib.pyplot as plt
 import os
 import re
+import argparse
 
 Z_n = 12
 
@@ -37,21 +38,10 @@ def generate_episodes_and_cal_J():
     J = np.mean(returns)
     return J
 
-def main():
-
-    solution = load_pickle("./solution.pkl")
+def main(file):
+    pass
+    # solution = load_pickle("./solution.pkl")
     # print(solution)
-
-    log_files = os.listdir("./logs/")
-    log_files = [int(re.sub("[^0-9]", "", f)) for f in log_files]
-
-    cs_file = f'./logs/candidate_selection_log{max(log_files)}.p'
-    solution_dict = load_pickle(cs_file)
-    
-    # plot gradient descent
-    fig = plot_gradient_descent(solution_dict, primary_objective_name='J',\
-        save=False)
-    plt.show()
 
     # # observe probabilities
     # env = MedEvac(Z_n = Z_n)
@@ -96,4 +86,25 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--file", default=None, type=str, help="name of log file")
+    parser.add_argument("--save", action="store_true", help="whether to save gradient descent plot")
+    parser.add_argument("--savename", help="name of saved gd plot", type=str, \
+        default=None)
+
+    args = parser.parse_args()
+    file = args.file
+
+    if file is None:
+        log_files = os.listdir("./logs/")
+        log_files = [int(re.sub("[^0-9]", "", f)) for f in log_files]
+
+        file = './logs/candidate_selection_log' + str(max(log_files)) + '.p'
+    solution_dict = load_pickle(file)
+
+    # plot gradient descent
+    if args.save and args.savename is None:
+        raise ValueError("Please provide save name")
+    fig = plot_gradient_descent(solution_dict, primary_objective_name='J',\
+        save=args.save, savename=args.savename)
+    plt.show()

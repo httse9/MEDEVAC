@@ -7,16 +7,9 @@ import autograd.numpy as np
 import matplotlib.pyplot as plt
 import os
 import re
-
-Z_n = 12
-n_episodes = 1000
-episodes_file = f"./MEDEVAC_{n_episodes}episodes.pkl"
-episodes = load_pickle(episodes_file)
+import argparse
 
 def performance_on_train_set(sol):
-
-    ep1 = episodes[0]
-    # print(ep1)
 
     mean_ret = []
     for ep in episodes:
@@ -109,7 +102,24 @@ def IS_expected_return(sol, ep):
     return frac * ret
 
 if __name__ == "__main__":
-    solution = load_pickle("./solution.pkl")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--file", help="name of solution file", default="solution.pkl", \
+        type=str)
+    parser.add_argument("--n_episodes", default=1000, type=str)
+    parser.add_argument("--Z_n", type=int, default=12)
+
+    args = parser.parse_args()
+
+    Z_n = args.Z_n
+    n_episodes = args.n_episodes
+    file = args.file
+
+    print("Z_n:", Z_n, "n_episodes:", n_episodes, "file:", file)
+
+    episodes_file = f"./MEDEVAC_{n_episodes}episodes.pkl"
+    episodes = load_pickle(episodes_file)
+
+    solution = load_pickle(file)
 
     performance_on_train_set(solution)
     performance_on_new_set(solution)
