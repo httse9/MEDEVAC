@@ -2,6 +2,7 @@ from seldonian.dataset import Episode
 from seldonian.utils.io_utils import save_pickle
 from seldonian.RL.environments.medevac import MedEvac
 import autograd.numpy as np
+import argparse
 
 def Random(env):
 
@@ -9,7 +10,8 @@ def Random(env):
 
 
 def main():
-    n_episodes = 50000
+
+    n_episodes = 1000
     Z_n = 12
     env = MedEvac(Z_n=Z_n)
     total_n_actions = 0
@@ -43,6 +45,7 @@ def main():
 
         episodes.append(Episode(observations, actions, rewards, action_probs))
 
+    # save_pickle("./MEDEVAC_" + str(n_episodes) + "episodes.pkl", episodes)
     save_pickle("/media/htse/MEDEVAC_" + str(n_episodes) + "episodes.pkl", episodes)
 
     print(total_n_actions)

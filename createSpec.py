@@ -6,15 +6,23 @@ from seldonian.dataset import RLDataSet
 from seldonian.utils.io_utils import load_pickle
 from seldonian.RL.environments.medevac import MedEvac
 import autograd.numpy as np
+import argparse
 
 def main():
-    n_episodes = 50000
-    episodes_file = "/media/htse/MEDEVAC_" + str(n_episodes) + "episodes.pkl"
+    parser = argparse.ArgumentParser()
+    parser.add_argument("episodes_file", type=str, help="path to episodes file")
+    parser.add_argument("--Z_n", type=int, default=12)
+
+    args = parser.parse_args()
+    episodes_file = args.episodes_file
+    Z_n = args.Z_n
+
+    print("Z_n:", Z_n, "episodes file:", episodes_file)
+
     episodes = load_pickle(episodes_file)
     dataset = RLDataSet(episodes=episodes)
 
     # initialize policy
-    Z_n = 12
     env = MedEvac(Z_n = Z_n)
     num_features = env.num_features
 
