@@ -104,6 +104,7 @@ def IS_expected_return(sol, ep):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("file", help="name of solution file", type=str)
+    parser.add_argument("episodes_file", type=str, help="path to episodes file")
     parser.add_argument("--n_episodes", default=1000, type=int)
     parser.add_argument("--Z_n", type=int, default=12)
 
@@ -115,7 +116,7 @@ if __name__ == "__main__":
 
     print("Z_n:", Z_n, "n_episodes:", n_episodes, "file:", file)
 
-    episodes_file = f"/media/htse/MEDEVAC_{n_episodes}episodes.pkl"
+    episodes_file = args.episodes_file #f"/media/htse/MEDEVAC_{n_episodes}episodes.pkl"
     episodes = load_pickle(episodes_file)
 
     solution = load_pickle(file)
