@@ -103,8 +103,9 @@ if __name__ == "__main__":
     solution_dict = load_pickle(file)
 
     # plot gradient descent
-    if args.save and args.savename is None:
-        raise ValueError("Please provide save name")
+    savename = args.savename
+    if args.save and savename is None:
+        savename = ".".join(file.split(".")[:-1] + ["png"])
     fig = plot_gradient_descent(solution_dict, primary_objective_name='J',\
-        save=args.save, savename=args.savename)
+        save=args.save, savename=savename)
     plt.show()

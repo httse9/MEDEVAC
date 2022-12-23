@@ -105,7 +105,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--file", help="name of solution file", default="solution.pkl", \
         type=str)
-    parser.add_argument("--n_episodes", default=1000, type=str)
+    parser.add_argument("--n_episodes", default=1000, type=int)
     parser.add_argument("--Z_n", type=int, default=12)
 
     args = parser.parse_args()
