@@ -9,7 +9,7 @@ def Random(env):
 
 
 def main():
-    n_episodes = 1000
+    n_episodes = 50000
     Z_n = 12
     env = MedEvac(Z_n=Z_n)
     total_n_actions = 0
@@ -43,7 +43,7 @@ def main():
 
         episodes.append(Episode(observations, actions, rewards, action_probs))
 
-    save_pickle(f"./MEDEVAC_{n_episodes}episodes.pkl", episodes)
+    save_pickle("/media/htse/MEDEVAC_" + str(n_episodes) + "episodes.pkl", episodes)
 
     print(total_n_actions)
     print(n_actions_taken, n_valid_actions_taken, n_valid_actions_taken / n_actions_taken)

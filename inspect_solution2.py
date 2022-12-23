@@ -40,7 +40,7 @@ def performance_on_new_set(solution):
     env = MedEvac(Z_n = Z_n)
 
     returns = []
-    for i in range(1000):
+    for i in range(50000):
         ret = 0
 
         env.reset()
@@ -116,7 +116,7 @@ if __name__ == "__main__":
 
     print("Z_n:", Z_n, "n_episodes:", n_episodes, "file:", file)
 
-    episodes_file = f"./MEDEVAC_{n_episodes}episodes.pkl"
+    episodes_file = f"/media/htse/MEDEVAC_{n_episodes}episodes.pkl"
     episodes = load_pickle(episodes_file)
 
     solution = load_pickle(file)

@@ -15,7 +15,7 @@ if __name__ == "__main__":
         print("Passed safety test!")
         print("The solution found is:")
         print(solution)
-        save_pickle("./solution.pkl", solution)
+        save_pickle("./solution0.01.pkl", solution)
 
         print("Primary objective evaluated on candidate dataset:")
         print(SA.evaluate_primary_objective(branch='candidate_selection', theta=solution))
